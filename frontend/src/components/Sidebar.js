@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import arrow from "../assets/control.png";
 import logo from "../assets/WorldCupLogo.jpg";
 import { GoHome } from "react-icons/go";
@@ -11,15 +11,18 @@ import { MdOutlineStadium } from "react-icons/md";
 const SideBar = () => {
   const [open, setOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const profileRef = useRef(null); // Ref for the profile dropdown
 
   const Menus = [
-    { title: "Home", icon: <GoHome /> },
-    { title: "Players", icon: <IoShirtOutline />, gap: true },
-    { title: "Teams", icon: <GiWorld />, gap: false },
-    { title: "Matches", icon: <IoIosFootball />, gap: true },
-    { title: "Stadiums", icon: <MdOutlineStadium />, gap: false },
-    { title: "Profile", icon: <IoPersonOutline />, acc: true },
+    { title: "Home", icon: <GoHome />, link: "/home" },
+    { title: "Players", icon: <IoShirtOutline />, link: "", gap: true },
+    { title: "Teams", icon: <GiWorld />, link: "" },
+    { title: "Matches", icon: <IoIosFootball />, link: "", gap: true },
+    { title: "Stadiums", icon: <MdOutlineStadium />,  },
+    {
+      title: "Profile",
+      icon: <IoPersonOutline />,
+      acc: true,
+    },
   ];
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -31,16 +34,10 @@ const SideBar = () => {
     return () => window.removeEventListener("resize", handleResizeWindow);
   }, []);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setIsProfileDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleClickOutside = () => {
+    setOpen(false);
+    setIsProfileDropdownOpen(false);
+  };
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -62,20 +59,20 @@ const SideBar = () => {
             }`}
             onClick={() => setOpen(!open)}
           />
+
           <div className="flex justify-center">
-            <Link
-              to="/home"
-              className={`cursor-pointer duration-500 w-[50%] mt-5 ${
-                open && "rotate-[360deg] pt-0"
-              }`}
-              alt="World Cup Logo"
-            >
+            <Link to="/home" className={`cursor-pointer duration-500 w-[50%] mt-5 ${
+                  open && "rotate-[360deg] pt-0"
+                }`}
+                alt="World Cup Logo">
+              
               <img
                 src={logo}
                 
               />
             </Link>
           </div>
+
           <ul className="pt-6 flex flex-col flex-1">
             {Menus.map((Menu, index) => (
               <li
@@ -87,22 +84,26 @@ const SideBar = () => {
                   Menu.title === "Profile" ? handleProfileClick : undefined
                 }
               >
-                <span className="text-2xl" onClick={() => setOpen(!open)}>
-                  {Menu.icon}
-                </span>
-                <span
-                  className={`${
-                    !open && "hidden"
-                  } origin-left duration-200 text-sm`}
+                <Link
+                  to={Menu.link}
+                  className="flex items-center gap-x-4 w-full"
                 >
-                  {Menu.title}
-                </span>
+                  {" "}
+                  {/* Link component added here */}
+                  <span className="text-2xl" onClick={() => setOpen(!open)}>
+                    {Menu.icon}
+                  </span>
+                  <span
+                    className={`${
+                      !open && "hidden"
+                    } origin-left duration-200 text-sm`}
+                  >
+                    {Menu.title}
+                  </span>
+                </Link>
                 {/* Profile Dropdown */}
                 {Menu.title === "Profile" && isProfileDropdownOpen && open && (
-                  <ul
-                    ref={profileRef} // Assign ref to the dropdown
-                    className="bg-white absolute left-full ml-4 mt-2 w-32 rounded-lg shadow-lg text-black"
-                  >
+                  <ul className="bg-white absolute left-full ml-4 mt-2 w-32 rounded-lg shadow-lg text-black">
                     <li className="p-2 hover:bg-slate-200 hover:rounded-lg">
                       <Link to="/login">Sign Out</Link>
                     </li>
@@ -120,19 +121,20 @@ const SideBar = () => {
         {open && (
           <div
             className="fixed inset-0 bg-black opacity-50 z-30"
-            onClick={() => setOpen(false)}
+            onClick={handleClickOutside}
           ></div>
         )}
       </div>
     );
   }
+
   return (
     <div>
       {/* Mobile view */}
       <div
         className={`bg-[#550065] w-full duration-300 z-40 fixed bottom-0 flex flex-col items-center ${
           open ? "h-[80vh]" : "h-20"
-        } overflow-y-auto`}
+        }`}
       >
         <div className="flex justify-center w-full cursor-pointer">
           <img
@@ -143,14 +145,16 @@ const SideBar = () => {
             onClick={() => setOpen(!open)}
           />
         </div>
-        <Link to="/home">
-        <img
-          src={logo}
-          className={`${
-            open ? "rotate-[360deg]" : "hidden"
-          } cursor-pointer duration-500 w-24 mt-4`}
-          alt="World Cup Logo"
-        />
+        <Link to="/">
+          {" "}
+          {/* Wrap logo with Link for mobile */}
+          <img
+            src={logo}
+            className={`${
+              open ? "rotate-[360deg]" : "hidden"
+            } cursor-pointer duration-500 w-24 mt-4`}
+            alt="World Cup Logo"
+          />
         </Link>
         <ul
           className={`flex ${
@@ -167,16 +171,17 @@ const SideBar = () => {
                 Menu.title === "Profile" ? handleProfileClick : undefined
               }
             >
-              <span className="text-2xl" onClick={() => setOpen(!open)}>
-                {Menu.icon}
-              </span>
-              {open && <span className="ml-2">{Menu.title}</span>}
+              <Link to={Menu.link} className="flex items-center gap-x-4 w-full">
+                {" "}
+                {/* Link component for mobile */}
+                <span className="text-2xl" onClick={() => setOpen(!open)}>
+                  {Menu.icon}
+                </span>
+                {open && <span className="ml-2">{Menu.title}</span>}
+              </Link>
               {/* Profile Dropdown for Mobile */}
               {Menu.title === "Profile" && open && isProfileDropdownOpen && (
-                <ul
-                  ref={profileRef} // Assign ref to the dropdown
-                  className="bg-white rounded-lg shadow-lg text-black w-32 mt-2 absolute mb-[13%] ml-[17%]"
-                >
+                <ul className="bg-white rounded-lg shadow-lg text-black w-32 mt-2 absolute mb-[13%] ml-[17%]">
                   <li className="p-2 hover:bg-slate-200 hover:rounded-lg">
                     <Link to="/login">Sign Out</Link>
                   </li>
@@ -193,7 +198,7 @@ const SideBar = () => {
       {open && (
         <div
           className="fixed inset-0 bg-black opacity-50 z-30"
-          onClick={() => setOpen(false)}
+          onClick={handleClickOutside}
         ></div>
       )}
     </div>

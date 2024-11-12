@@ -43,7 +43,7 @@ const Navbar = () => {
           alt="FIFA Logo"
         />
       </div>
-      <div className="flex-no-wrap fixed h-[6rem] z-0 flex w-full items-center justify-between bg-[#550065] py-2 2xl:h-[7rem]">
+      <div className="flex-no-wrap fixed h-[6rem] z-20 flex w-full items-center justify-between bg-[#550065] py-2 2xl:h-[7rem]">
         <div className="flex items-center w-full mt-4">
           <Link
             to="/home"
