@@ -15,8 +15,8 @@ const SideBar = () => {
   const Menus = [
     { title: "Home", icon: <GoHome />, link: "/home" },
     { title: "Players", icon: <IoShirtOutline />, link: "", gap: true },
-    { title: "Teams", icon: <GiWorld />, link: "" },
-    { title: "Matches", icon: <IoIosFootball />, link: "", gap: true },
+    { title: "Teams", icon: <GiWorld />, link: "/teams" },
+    { title: "Matches", icon: <IoIosFootball />, link: "/matches", gap: true },
     { title: "Stadiums", icon: <MdOutlineStadium />,  },
     {
       title: "Profile",
@@ -55,7 +55,7 @@ const SideBar = () => {
           <img
             src={arrow}
             className={`absolute cursor-pointer -right-3 top-11 w-7 border-dark-purple border-2 rounded-full rotate-180 ${
-              open && "rotate-0 top-9"
+              open && "rotate-[-90] top-11"
             }`}
             onClick={() => setOpen(!open)}
           />

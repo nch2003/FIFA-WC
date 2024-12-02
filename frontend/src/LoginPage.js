@@ -29,7 +29,11 @@ const Login = () => {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
-          if (res.data === "Login successful") {
+          if (res.data.message === "Login successful") {
+            const user = res.data.user; // Extract the user details
+
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log(user);
             navigate("/home");
           } else {
             alert("Invalid credentials");

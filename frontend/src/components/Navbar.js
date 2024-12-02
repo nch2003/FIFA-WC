@@ -9,11 +9,11 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   const Menus = [
-    { title: "Home" },
-    { title: "Players" },
-    { title: "Teams" },
-    { title: "Matches" },
-    { title: "Stadiums" },
+    { title: "Home", link: "/home" },
+    { title: "Players", link: "" },
+    { title: "Teams", link: "/teams" },
+    { title: "Matches", link: "/matches" },
+    { title: "Stadiums", link: ""},
   ];
 
   const toggleDropdown = () => {
@@ -54,13 +54,13 @@ const Navbar = () => {
           </Link>
 
           {/* Horizontal Scrollable Menu */}
-          <div className="flex overflow-x-auto w-[90%] mt-4 md:items-center md:justify-evenly">
+          <div className="flex overflow-x-auto w-[90%] mt-4 md:items-center md:justify-evenly no-scrollbar">
             {Menus.map((Menu, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between min-w-[100px] text-white text-sm font-semibold"
               >
-                <span className="text-white">{Menu.title}</span>
+                <Link to={Menu.link} className="text-white">{Menu.title}</Link>
               </div>
             ))}
           </div>
