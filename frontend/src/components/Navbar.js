@@ -10,17 +10,16 @@ const Navbar = () => {
 
   const Menus = [
     { title: "Home", link: "/home" },
-    { title: "Players", link: "" },
     { title: "Teams", link: "/teams" },
+    { title: "Players", link: "/players" },
     { title: "Matches", link: "/matches" },
-    { title: "Stadiums", link: ""},
+    { title: "Stadiums", link: "/stadiums" },
   ];
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Close the dropdown if clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -53,7 +52,6 @@ const Navbar = () => {
             <img src={logo} />
           </Link>
 
-          {/* Horizontal Scrollable Menu */}
           <div className="flex overflow-x-auto w-[90%] mt-4 md:items-center md:justify-evenly no-scrollbar">
             {Menus.map((Menu, index) => (
               <div
@@ -65,7 +63,6 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Account Icon with Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <IoPersonOutline
               className="text-white text-2xl flex items-center mr-4 mt-4 cursor-pointer"

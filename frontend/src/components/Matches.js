@@ -13,7 +13,7 @@ function Matches() {
     axios
       .get("http://localhost:8081/matches")
       .then((response) => {
-        const matches = response.data; // Datele sunt deja grupate de backend
+        const matches = response.data; 
         setGroupedMatches(matches);
       })
       .catch((error) => {
@@ -64,23 +64,19 @@ function Matches() {
       <Navbar />
       <SideBar />
       <div className="flex flex-col bg-[#eeeee4] overflow-y-hidden">
-        {/* Header */}
         <div className="bg-[#3A034B] w-full h-40 md:h-64 flex items-center">
           <div className="flex flex-row items-center ml-10 mt-[20%] sm:mt-[15%] md:mt-[22%] xl:mt-[14%] md:ml-[15%] xl:ml-[10%] md:pb-[5.7rem]">
             <h1 className="text-3xl font-bold text-white ml-5">Matches</h1>
           </div>
         </div>
 
-        {/* Matches grouped by date */}
         <div className="p-4 mt-10 mb-[15%] md:mb-10 md:ml-[7%]">
           {Object.entries(groupedMatches).map(([date, matches]) => (
             <div key={date} className="mb-6">
-              {/* Match day */}
               <h2 className="text-2xl font-bold mb-4 ml-4 md:ml-10">
                 {date}
               </h2>
 
-              {/* Matches for this day */}
               <div className="flex flex-1 flex-col gap-4 ">
                 {matches.map((match, index) => (
                   <Link
@@ -88,14 +84,11 @@ function Matches() {
                     key={index}
                     className="bg-white shadow-md rounded-lg p-4 flex items-center justify-between hover:border-black hover:border-[1px]"
                   >
-                    {/* Left Column - Stage */}
                     <div className="text-sm text-gray-500 flex-shrink-0 w-1/4 text-left">
                       {match.stage}
                     </div>
 
-                    {/* Center Column - Teams and Scores */}
                     <div className="flex items-center justify-center w-full md:mr-[7%]">
-                      {/* Left Team */}
                       <div className="flex items-center justify-end gap-1 w-1/4">
                         <span className="text-sm md:text-lg  font-semibold">
                           {match.team1_name}
@@ -109,12 +102,10 @@ function Matches() {
                         />
                       </div>
 
-                      {/* Score */}
                       <div className="text-lg font-semibold flex items-center justify-center  mx-5">
                         {match.score_team1} - {match.score_team2}
                       </div>
 
-                      {/* Right Team */}
                       <div className="flex items-center justify-begin gap-1 w-1/4">
                         <img
                           src={`https://flagcdn.com/w320/${getCountryCode(
@@ -129,7 +120,6 @@ function Matches() {
                       </div>
                     </div>
 
-                    {/* Right Column - Placeholder */}
                     <div className="w-1/4 text-right text-gray-500 flex-shrink-0">
                       FT
                     </div>

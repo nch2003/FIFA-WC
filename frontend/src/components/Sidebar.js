@@ -14,10 +14,10 @@ const SideBar = () => {
 
   const Menus = [
     { title: "Home", icon: <GoHome />, link: "/home" },
-    { title: "Players", icon: <IoShirtOutline />, link: "", gap: true },
-    { title: "Teams", icon: <GiWorld />, link: "/teams" },
+    { title: "Teams", icon: <GiWorld />, link: "/teams", gap: true },
+    { title: "Players", icon: <IoShirtOutline />, link: "/players" },
     { title: "Matches", icon: <IoIosFootball />, link: "/matches", gap: true },
-    { title: "Stadiums", icon: <MdOutlineStadium />,  },
+    { title: "Stadiums", icon: <MdOutlineStadium />, link: "/stadiums" },
     {
       title: "Profile",
       icon: <IoPersonOutline />,
@@ -46,7 +46,6 @@ const SideBar = () => {
   if (width > breakpoint) {
     return (
       <div className="flex">
-        {/* Sidebar */}
         <div
           className={`${
             open ? "w-72" : "w-20"
@@ -88,8 +87,7 @@ const SideBar = () => {
                   to={Menu.link}
                   className="flex items-center gap-x-4 w-full"
                 >
-                  {" "}
-                  {/* Link component added here */}
+                
                   <span className="text-2xl" onClick={() => setOpen(!open)}>
                     {Menu.icon}
                   </span>
@@ -101,7 +99,6 @@ const SideBar = () => {
                     {Menu.title}
                   </span>
                 </Link>
-                {/* Profile Dropdown */}
                 {Menu.title === "Profile" && isProfileDropdownOpen && open && (
                   <ul className="bg-white absolute left-full ml-4 mt-2 w-32 rounded-lg shadow-lg text-black">
                     <li className="p-2 hover:bg-slate-200 hover:rounded-lg">
@@ -117,7 +114,6 @@ const SideBar = () => {
           </ul>
         </div>
 
-        {/* Main content overlay when sidebar is open */}
         {open && (
           <div
             className="fixed inset-0 bg-black opacity-50 z-30"
@@ -130,7 +126,6 @@ const SideBar = () => {
 
   return (
     <div>
-      {/* Mobile view */}
       <div
         className={`bg-[#550065] w-full duration-300 z-40 fixed bottom-0 flex flex-col items-center ${
           open ? "h-[80vh]" : "h-20"
@@ -146,8 +141,7 @@ const SideBar = () => {
           />
         </div>
         <Link to="/">
-          {" "}
-          {/* Wrap logo with Link for mobile */}
+          
           <img
             src={logo}
             className={`${
@@ -172,14 +166,12 @@ const SideBar = () => {
               }
             >
               <Link to={Menu.link} className="flex items-center gap-x-4 w-full">
-                {" "}
-                {/* Link component for mobile */}
+                
                 <span className="text-2xl" onClick={() => setOpen(!open)}>
                   {Menu.icon}
                 </span>
                 {open && <span className="ml-2">{Menu.title}</span>}
               </Link>
-              {/* Profile Dropdown for Mobile */}
               {Menu.title === "Profile" && open && isProfileDropdownOpen && (
                 <ul className="bg-white rounded-lg shadow-lg text-black w-32 mt-2 absolute mb-[13%] ml-[17%]">
                   <li className="p-2 hover:bg-slate-200 hover:rounded-lg">

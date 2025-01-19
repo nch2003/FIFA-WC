@@ -8,12 +8,11 @@ const Teams_images_home = () => {
 const [teams, setTeams] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch teams data
   useEffect(() => {
     axios
       .get("http://localhost:8081/teams")
       .then((response) => {
-        setTeams(response.data); // Update the teams with data from the server
+        setTeams(response.data); 
       })
       .catch((error) => {
         console.error("There was an error fetching the team data!", error);
@@ -58,7 +57,6 @@ const [teams, setTeams] = useState([]);
     return countryCodes[teamName] || "";
   };
 
-  // Navigate to Teams page
   const handleShowMore = () => {
     navigate("/teams");
   };
@@ -66,7 +64,6 @@ const [teams, setTeams] = useState([]);
     <div className="bg-[#eeeee4] py-10 pb-20">
       <h2 className="text-3xl font-semibold text-center mb-10">Teams</h2>
 
-      {/* Teams Grid (first 6 teams) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4  md:ml-20 lg:ml-15">
         {teams.slice(0, 6).map((team, index) => (
           <Link
@@ -86,7 +83,6 @@ const [teams, setTeams] = useState([]);
         ))}
       </div>
 
-      {/* Show More Button */}
       <div className="flex justify-center mt-4">
         <button
           onClick={handleShowMore}

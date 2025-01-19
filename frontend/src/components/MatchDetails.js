@@ -6,12 +6,12 @@ import Navbar from "./Navbar";
 import SideBar from "./Sidebar";
 
 function MatchDetails() {
-  const { matchId } = useParams(); // Retrieve matchId from URL
+  const { matchId } = useParams();
   const [matchDetails, setMatchDetails] = useState({});
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8081/matches/${matchId}`) // Endpoint to fetch match details
+      .get(`http://localhost:8081/matches/${matchId}`) 
       .then((response) => {
         setMatchDetails(response.data);
       })
@@ -63,7 +63,6 @@ function MatchDetails() {
       <Navbar />
       <SideBar />
       <div className="flex flex-col bg-[#eeeee4] overflow-y-hidden min-h-screen">
-        {/* Header */}
         <div className="bg-[#3A034B] w-full h-40 md:h-64 flex items-center">
           <div className="flex flex-row items-center ml-10 mt-[20%] sm:mt-[15%] md:mt-[22%] xl:mt-[14%] md:ml-[15%] xl:ml-[10%] md:pb-[5.7rem]">
             <h1 className="text-3xl font-bold text-white ml-5">
@@ -72,18 +71,15 @@ function MatchDetails() {
           </div>
         </div>
 
-        {/* Match Details */}
         <div className="flex justify-center">
           <div className="bg-white shadow-md p-10 flex flex-col gap-10 w-full md:h-auto">
-            {/* Group Stage and Date */}
             <div className="flex justify-between items-center text-gray-500 md:ml-[7%]">
               <div className="text-sm font-medium">{matchDetails.stage}</div>
+              <p>Stadium: {matchDetails.stadium_name}</p>
               <div className="text-sm">{matchDetails.match_day}</div>
             </div>
 
-            {/* Teams and Scores */}
             <div className="flex items-center justify-around">
-              {/* Left Team */}
               <Link
                 to={`/teams/${matchDetails.team1_name}`}
                 key={matchDetails.team1_name}
@@ -101,12 +97,10 @@ function MatchDetails() {
                 />
               </Link>
 
-              {/* Score */}
               <div className="text-2xl font-bold mx-10">
                 {matchDetails.score_team1} - {matchDetails.score_team2}
               </div>
 
-              {/* Right Team */}
               <Link
                 to={`/teams/${matchDetails.team2_name}`}
                 key={matchDetails.team2_name}
@@ -124,12 +118,9 @@ function MatchDetails() {
                 </span>
               </Link>
             </div>
-
-            {/* Stats Section */}
           </div>
         </div>
         <div className="flex flex-col align-center justify-center mt-10 bg-white ml-[15%] rounded-lg mr-[15%] mb-[25%] md:mb-[15%]">
-          {/* Possession */}
           <h3 className="text-center font-bold mt-5">Possession</h3>
           <div className="flex items-center justify-between">
             <span className="p-5">{matchDetails.possesion_team1}%</span>
@@ -151,7 +142,6 @@ function MatchDetails() {
             <span className="p-5">{matchDetails.possesion_team2}%</span>
           </div>
 
-          {/* Goals */}
           <div className="mt-10">
             <h3 className="text-center font-bold">Goals</h3>
             <div className="flex items-center justify-between mt-2">
@@ -172,10 +162,7 @@ function MatchDetails() {
             </div>
           </div>
 
-          {/* Additional Stats */}
-          <div className="mt-6">
-            {/* You can add more stats like offsides or other */}
-          </div>
+          <div className="mt-6"></div>
         </div>
       </div>
     </div>
